@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import './styles/global.css';	
 import './App.css';
 import Header from '../src/components/Header/Header';
+import Sidebar from './components/Sidebar/Sidebar';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
   return (
     <div>
       <Header onSearch={handleSearch} />
+      <Sidebar/>
     </div>
   );
 }

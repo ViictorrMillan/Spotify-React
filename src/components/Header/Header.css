@@ -16,6 +16,10 @@
     margin: .75rem; /* 12px para rem */
     border-radius: .5rem; /* .5rem para rem */
     background-color: #121212;
+    padding: .75rem;
+    max-width: 80vw;
+    margin-left: 20.625rem;
+    margin-right: .9375rem;
   }
   
   .header__navigation .navigation {
@@ -93,4 +97,6 @@
     font-weight: 700;
     border-radius: 2.5rem;
   }
+  
+
   
