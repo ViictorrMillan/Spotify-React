@@ -1,0 +1,85 @@
+@media screen and (max-width: 1120px) {
+    .header__search {
+        width: 30%; /* Ou um valor que você preferir */
+        transition: width 0.3s ease; /* Transição suave */
+    }
+
+    .header__search input {
+        width: auto; /* Permite que o input diminua */
+        transition: width 0.3s ease; /* Transição suave */
+    }
+}
+
+
+@media screen and (max-width: 1024px) {
+    .header__search {
+        position: relative;
+        width: 2.1875rem; /* Largura inicial do container */
+        height: 2.1875rem; /* Altura inicial do container */
+        background-color: #242424; /* Cor de fundo */
+        border-radius: 50%; /* Faz o container ser circular */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer; /* Muda o cursor para indicar que é clicável */
+    }
+    
+    .header__search img {
+        width: 1.25rem; /* Tamanho da lupa */
+        height: 1.25rem; /* Tamanho da lupa */
+        margin: 0;
+    }
+    
+    .header__search input {
+        width: 0; /* Começa com largura 0 */
+        height: 100%; /* Altura do input igual à do container */
+        padding: 0 10px; /* Padding para o texto */
+        border: none; /* Remove a borda */
+        background: transparent; /* Fundo transparente */
+        color: var(--text-base-light); /* Cor do texto */
+        outline: none; /* Remove o contorno */
+        transition: width 0.3s ease; /* Transição suave para a largura */
+        border-radius: 25px; /* Bordas arredondadas */
+        opacity: 0; /* Começa invisível */
+        position: absolute; /* Posiciona o input em relação ao container */
+        bottom: -50px; /* Posiciona o input abaixo do container */
+    }
+    
+}
+
+
+
+
+
+
+@media screen and (max-width: 920px) {
+    .offer__list-item {
+        grid-template-columns: 1fr; /* Uma coluna */
+    }
+}
+
+
+
+@media screen and (max-width: 672px) {
+    .playlist {
+      display: none;
+    }
+  
+    .playlist-container {
+      width: 100%; /* Ocupa toda a largura disponível */
+      height: auto; /* Altura automática, ajusta conforme o conteúdo */
+    }
+  
+    .sidebar {
+      width: 342px;
+    }
+  
+    .offer__list-item {
+      grid-template-columns: 1fr;
+    }
+  
+    .offer__scroll-container {
+      overflow-y: visible;
+    }
+  
+  }
