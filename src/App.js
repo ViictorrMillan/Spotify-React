@@ -1,9 +1,15 @@
 // App.jsx
 import React, { useState } from 'react';
-import './styles/global.css';	
+import './styles/reset.css';  // Reset global (importado primeiro)
+import './styles/global.css';  // Variáveis globais e estilos gerais
+import './styles/media-queries.css';  // Estilos responsivos
+
 import './App.css';
 import Header from '../src/components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
+import Footer from './components/Footer/Footer';
+import Main from './components/Main/Main';
+
 
 
 function App() {
@@ -15,8 +21,10 @@ function App() {
 
   return (
     <div>
-      <Header onSearch={handleSearch} />
+      <Header handleSearch={handleSearch}/>
       <Sidebar/>
+      <Main searchTerm={searchTerm}/>
+      <Footer/>
     </div>
   );
 }

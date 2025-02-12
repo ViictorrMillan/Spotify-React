@@ -65,6 +65,7 @@
     font-size: 0.875rem; /* 14px para rem */
     margin-top: 0.625rem; /* 10px para rem */
     flex-direction: column;
+    
 }
 
 .library .library__button {
