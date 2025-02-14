@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./Main.css";
 
+// Importando os dados de artistas do arquivo JSON
+import artistData from "../../assets/data/artists.json"; // Ajuste o caminho conforme necessário
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay } from '@fortawesome/free-solid-svg-icons'; // Importando o ícone de play
+
 import Playlist1 from "../../assets/playlist/1.jpeg";
 import Playlist2 from "../../assets/playlist/2.png";
 import Playlist3 from "../../assets/playlist/3.jpeg";
@@ -39,6 +44,8 @@ const playlists = [
 const Main = ({ searchTerm }) => {
   const [greeting, setGreeting] = useState(""); // Estado para armazenar a saudação
   const [columns, setColumns] = useState(1); // Estado para o número de colunas
+  const [artistResults, setArtistResults] = useState([]); // Estado para armazenar os resultados dos artistas
+  const [showPlaylists, setShowPlaylists] = useState(true); // Estado para controlar a exibição das playlists
 
   // Função para obter a saudação com base na hora atual
   const getGreetingMessage = (currentHour) => {
@@ -53,10 +60,29 @@ const Main = ({ searchTerm }) => {
 
   // Atualiza a saudação com base na hora atual
   useEffect(() => {
-    const currentHour = new Date().getHours(); // Obtém a hora atual
-    const greetingMessage = getGreetingMessage(currentHour); // Obtém a saudação
-    setGreeting(greetingMessage); // Atualiza o estado com a saudação
+    const currentHour = new Date().getHours();
+    const greetingMessage = getGreetingMessage(currentHour);
+    setGreeting(greetingMessage);
   }, []);
+
+  // Atualiza a exibição das playlists dependendo do searchTerm
+  useEffect(() => {
+    if (searchTerm) {
+      filterArtists(searchTerm);
+    } else {
+      setShowPlaylists(true); // Se não houver pesquisa, mostra as playlists
+      setArtistResults([]); // Limpa os resultados de artista
+    }
+  }, [searchTerm]);
+
+  // Função para filtrar os artistas com base no searchTerm
+  const filterArtists = (searchTerm) => {
+    const filtered = artistData.artists.filter((artist) =>
+      artist.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setArtistResults(filtered);
+    setShowPlaylists(filtered.length === 0); // Esconde playlists se houver resultados
+  };
 
   useEffect(() => {
     const container = document.querySelector(".offer__list-item");
@@ -65,7 +91,6 @@ const Main = ({ searchTerm }) => {
       const containerWidth = container.clientWidth;
       const numColumns = Math.floor(containerWidth / 220);
 
-      // Evita o ciclo infinito
       if (numColumns !== columns) {
         setColumns(numColumns);
       }
@@ -75,15 +100,40 @@ const Main = ({ searchTerm }) => {
     return () => {
       observer.disconnect();
     };
-  }, [columns]); // Atualiza o número de colunas quando o estado mudar
+  }, [columns]);
 
   return (
     <div className="playlist-container">
       <div id="result-playlists">
-        <div className="playlist">
-          <h1 id="greeting">{greeting}</h1> {/* Exibe a saudação */}
-          <h2 className="greeting-subtitle">Navegar por todas as seções</h2>
-        </div>
+        {/* Exibe os resultados de artistas se houver */}
+        {artistResults.length > 0 && (
+          <div id="result-artist">
+            <div className="grid-container">
+              {artistResults.map((artist) => (
+                <div key={artist.id} className="artist-card">
+                  <div className="card-img">
+                      <img className="artist-img" src={artist.urlImg} alt={artist.name} />
+                      <div className="play">
+                        <FontAwesomeIcon icon={faPlay} />
+                      </div>
+                    </div>
+                  <div className="card-text">
+                    <span className="artist-name">{artist.name}</span>
+                    <span className="artist-categorie">{artist.genre}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Se não houver resultados de artistas, exibe as playlists */}
+        {showPlaylists && (
+          <div className="playlist">
+            <h1 id="greeting">{greeting}</h1>
+            <h2 className="greeting-subtitle">Navegar por todas as seções</h2>
+          </div>
+        )}
 
         <div className="offer__scroll-container">
           <div className="offer__list">
@@ -93,14 +143,15 @@ const Main = ({ searchTerm }) => {
                 gridTemplateColumns: `repeat(${Math.max(columns, 1)}, minmax(200px, 1fr))`,
               }}
             >
-              {playlists.map((playlist, index) => (
-                <a key={index} href="#" className="cards">
-                  <div className={`cards card${index + 1}`}>
-                    <img src={playlist.img} alt={playlist.name} />
-                    <span>{playlist.name}</span>
-                  </div>
-                </a>
-              ))}
+              {showPlaylists &&
+                playlists.map((playlist, index) => (
+                  <a key={index} href="#" className="cards">
+                    <div className={`cards card${index + 1}`}>
+                      <img src={playlist.img} alt={playlist.name} />
+                      <span>{playlist.name}</span>
+                    </div>
+                  </a>
+                ))}
             </section>
           </div>
         </div>

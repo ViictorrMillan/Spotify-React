@@ -49,6 +49,13 @@
     font-weight: 300;
 }
 
+/* Ajuste do tamanho dos ícones */
+.sidebar .fa-globe,
+.sidebar .fa-plus {
+    font-size: 1rem;  /* Aumente ou diminua conforme necessário */
+}
+
+
 .sidebar nav ul li a:hover {
     color: var(--text-base-light);
 }

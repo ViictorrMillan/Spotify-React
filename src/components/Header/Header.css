@@ -16,8 +16,8 @@
   margin: .75rem; /* 12px para rem */
   border-radius: .5rem; /* .5rem para rem */
   background-color: #121212;
-  padding: 12px;
-  max-width: 80vw;
+  padding: 16px;
+  max-width: 70vw;
   margin-left: 330px;
   margin-right: 15px;
 }
